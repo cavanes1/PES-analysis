@@ -1,0 +1,5 @@
+&cpsearch
+ niter=999
+ maxdisp=1d-2
+ sadd_search= 'N'
+ /

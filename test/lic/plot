@@ -1,0 +1,12 @@
+set terminal postscript eps enhanced color font "Times-New-Roman:Bold,16"
+set output 'lic.eps'
+
+set border 31 lw 2
+
+set xlabel 'Linear Coordinate'
+set ylabel 'Energy (cm^{-1})'
+
+p   'energy.dat' u 1 w p pt 6 lc 7 title 'E_1(ab)',\
+              '' u 2 w p pt 1 lc 1 title 'E_2(ab)', \
+              '' u 3 w l lc 7 lw 3 title 'E_1(fit)', \
+              '' u 4 w l lc 2 lw 3 title 'E_2(fit)'

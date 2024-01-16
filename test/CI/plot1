@@ -1,0 +1,21 @@
+set terminal postscript eps enhanced color font "Times-New-Roman:Bold,16"
+set output 'hd.eps'
+
+set xlabel 'x' offset 0,-1,0
+set ylabel 'y' offset 0,-1,0
+set zlabel 'Energy(cm^{-1})' offset -0.5 rotate by 90
+
+set border 31 lw 2
+
+set pm3d
+set palette rgbformulae 22, 13, -31
+set view 70, 33
+
+set xrange [-0.3:0.3]
+set yrange [-0.3:0.3]
+
+set xtics offset -1,-0.5,-0.5
+set ytics offset 1,-0.5,1
+
+sp 'output' u 1:2:5 w l lw 0.01 title '',\
+         '' u 1:2:6 w l lw 0.01 title ''

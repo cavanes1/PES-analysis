@@ -1,0 +1,15 @@
+set terminal postscript eps enhanced color font "Times-New-Roman:Bold,16"
+set output 'contour.eps'
+
+set border 31 lw 2
+
+set xlabel "x"
+set ylabel "y"
+
+set size square
+
+set xrange [-0.2:0.2]
+set yrange [-0.2:0.2]
+
+
+p 'energy.txt' u 1:2 w l lw 1.0 lc 7 title ''

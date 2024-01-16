@@ -1,0 +1,4 @@
+&mexopt
+maxiter=200
+maxd=1.d-2
+/
