@@ -21,6 +21,10 @@ nadvibs.x: $(OBJ) nadvibsinput.o
 	$(FC) $(FFLAGS) $(OBJ) nadvibsinput.o -o nadvibs.x $(LDFLAGS)
 basis.x: $(OBJ) basis.o
 	$(FC) $(FFLAGS) $(OBJ) basis.o -o basis.x $(LDFLAGS)
+gf.x: $(OBJ) gf.o
+	$(FC) $(FFLAGS) $(OBJ) gf.o -o gf.x $(LDFLAGS)
+traj.x: $(OBJ) traj.o
+	$(FC) $(FFLAGS) $(OBJ) traj.o -o traj.x $(LDFLAGS)
 
 clean:
 	rm -f *.o *.mod a.out *.x

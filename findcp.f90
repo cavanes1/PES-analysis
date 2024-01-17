@@ -1,7 +1,8 @@
 program main
+  use hddata
   use opttools, only: readcolgeom, analysegeom, getflunit, analysegeom2
   implicit none
-  integer :: natoms,nstates
+  !integer :: natoms,nstates
   ! masses = atomic masses array
   ! anum   = atomic number array
   ! aname  = atomic name   array
@@ -50,6 +51,13 @@ program main
   character*300    :: new_geomfl, old_geomfl, inputfile
   integer          :: un_infile
   integer :: i
+
+  character(255) :: filename, npoints, enfDiab, epmax, w_energy, w_grad, w_fij, &
+  gradcutoff, cpcutoff, deggrdbinding, deg_cap, lambda, &
+  nrmediff, ediffcutoff, fixref ! dummy except for filename
+  DOUBLE PRECISION,dimension(10) :: energyT, highEScale ! dummy
+  DOUBLE PRECISION :: eshift    ! uniform shift on ab initio energies
+
   ! Namelist input for inputfile
   namelist /cpsearch/   niter, egrad_tol, shift, disp_tol, grad_scale, hess_disp, &
       maxdisp, sadd_search, printlvl, molden, ant_output, geomprint
@@ -70,6 +78,14 @@ program main
   ant_output = .false.   
   bndcutoff  = 4d0        
 
+  namelist /fitting/ npoints, enfDiab, epmax, w_energy, w_grad, w_fij, &
+  gradcutoff, cpcutoff, deggrdbinding, deg_cap, lambda, eshift, energyT, &
+  highEScale, nrmediff, ediffcutoff, fixref, natoms, nstates
+
+  open(103,file='fit.in',delim='APOSTROPHE')
+  read(unit=103,nml=fitting)
+  close(103)
+
   
   print *, "*******************************************"
   print *, "*         findcp.x                        *"
@@ -77,8 +93,15 @@ program main
   print *, " Critical point search"
 
   ! Initialize surface
+  print *,nstates
+  print *,natoms
   call initpes
-  call getinfo(natoms,nstates)
+  print *,nstates
+  print *,natoms
+  !call getinfo(natoms,nstates)
+  print *,nstates
+  print *,natoms
+  print *, "Surface initialized"
 
   ! Allocate arrays
   allocate(masses(natoms))

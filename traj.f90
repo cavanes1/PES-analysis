@@ -43,11 +43,6 @@ program main
     read(100,*,iostat=ios) sym, x(:,4)
     read(100,*,iostat=ios) sym, x(:,5)
     read(100,*,iostat=ios) sym, x(:,6)
-    read(100,*,iostat=ios) sym, x(:,7)
-    read(100,*,iostat=ios) sym, x(:,8)
-    read(100,*,iostat=ios) sym, x(:,9)
-    read(100,*,iostat=ios) sym, x(:,10)
-    read(100,*,iostat=ios) sym, x(:,11)
     if(ios.ne.0) exit
     if(idx.lt.id) cycle
     if(idx.eq.id) then
@@ -68,19 +63,14 @@ program main
     write(200,"(i5,4e14.5)") i,t(i),v(i)*ev2cm,e*au2cm
 
     call orientation(x,Rot,info)
-    write(201,"(i4)") 11
+    write(201,"(i4)") 6
     write(201,"(4e14.5)")  t(i),v(i)*ev2cm,e*au2cm
-    write(201,"('C',2x,3f15.9)") x(:,1)*bohr2angs
-    write(201,"('C',2x,3f15.9)") x(:,2)*bohr2angs
-    write(201,"('C',2x,3f15.9)") x(:,3)*bohr2angs
-    write(201,"('C',2x,3f15.9)") x(:,4)*bohr2angs
+    write(201,"('N',2x,3f15.9)") x(:,1)*bohr2angs
+    write(201,"('N',2x,3f15.9)") x(:,2)*bohr2angs
+    write(201,"('N',2x,3f15.9)") x(:,3)*bohr2angs
+    write(201,"('N',2x,3f15.9)") x(:,4)*bohr2angs
     write(201,"('C',2x,3f15.9)") x(:,5)*bohr2angs
-    write(201,"('N',2x,3f15.9)") x(:,6)*bohr2angs
-    write(201,"('H',2x,3f15.9)") x(:,7)*bohr2angs
-    write(201,"('H',2x,3f15.9)") x(:,8)*bohr2angs
-    write(201,"('H',2x,3f15.9)") x(:,9)*bohr2angs
-    write(201,"('H',2x,3f15.9)") x(:,10)*bohr2angs
-    write(201,"('H',2x,3f15.9)") x(:,11)*bohr2angs
+    write(201,"('H',2x,3f15.9)") x(:,6)*bohr2angs
 
   end do
 

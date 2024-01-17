@@ -10,9 +10,11 @@ subroutine initpes
   real*8 :: anums
   integer :: i,j,fid,ios
 
-  natoms=11
+  !natoms=6
+  print*,natoms
   nvibs=3*natoms-6
-  nstates=2
+  print*,nvibs
+  !nstates=5
 
   !read coorninate definition
   ncoord=DefineInternalCoordinate()

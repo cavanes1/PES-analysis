@@ -1,7 +1,8 @@
 program main
+  use hddata
   use opttools, only: readcolgeom, analysegeom, getflunit, analysegeom2
   implicit none
-  integer :: natoms,nstates
+  !integer :: natoms,nstates
   ! masses = atomic masses array
   ! anum   = atomic number array
   ! aname  = atomic name   array
@@ -40,11 +41,26 @@ program main
   double precision, parameter :: deg2rad=0.01745329251994d0
   integer,          parameter :: fid=326
   integer :: i
+
+  character(255) :: filename, npoints, enfDiab, epmax, w_energy, w_grad, w_fij, &
+  gradcutoff, cpcutoff, deggrdbinding, deg_cap, lambda, &
+  nrmediff, ediffcutoff, fixref ! dummy except for filename
+  DOUBLE PRECISION,dimension(10) :: energyT, highEScale ! dummy
+  DOUBLE PRECISION :: eshift    ! uniform shift on ab initio energies
+
   ! Namelist for input
   NAMELIST /MEXOPT/  shift, gtol, dtol, evalcutoff, maxd, maxiter,&
     scale, ncons, cons_atm, cons_val
-  
+
   new_geomfl="new.geom"
+
+  namelist /fitting/ npoints, enfDiab, epmax, w_energy, w_grad, w_fij, &
+  gradcutoff, cpcutoff, deggrdbinding, deg_cap, lambda, eshift, energyT, &
+  highEScale, nrmediff, ediffcutoff, fixref, natoms, nstates
+
+  open(103,file='fit.in',delim='APOSTROPHE')
+  read(unit=103,nml=fitting)
+  close(103)
   
   print *," ***************************************** "
   print *," *    findmex.x                           * "
@@ -52,7 +68,7 @@ program main
   print *," Minimum energy crossing search"
   
   call initpes
-  call getinfo(natoms,nstates)
+  !call getinfo(natoms,nstates)
 
   shift=1d-8
   gtol =1d-5

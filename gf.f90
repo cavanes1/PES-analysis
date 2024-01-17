@@ -4,7 +4,8 @@ program main
   use geomtrans
   implicit none
   real*8, parameter :: au2cm=219474.63067d0
-  real*8, parameter :: eshift=284.717676772199d0
+  !real*8, parameter :: eshift=256.7878473312d0
+  DOUBLE PRECISION :: eshift    ! uniform shift on ab initio energies
   real*8, parameter :: bohr2angs=0.529177210903d0
   real*8, parameter :: amu2au=1822.888486d0
   real*8, parameter :: freq2cm=1378999.78d0
@@ -20,6 +21,18 @@ program main
   real*8 :: anums
   real*8 :: Rot(3,3), h,t,tol
   integer :: i,j,k,ios,total,info
+
+  character(255) :: filename, npoints, enfDiab, epmax, w_energy, w_grad, w_fij, &
+  gradcutoff, cpcutoff, deggrdbinding, deg_cap, lambda, &
+  nrmediff, ediffcutoff, fixref ! dummy except for filename
+  DOUBLE PRECISION,dimension(10) :: energyT, highEScale ! dummy
+
+  namelist /fitting/ npoints, enfDiab, epmax, w_energy, w_grad, w_fij, &
+  gradcutoff, cpcutoff, deggrdbinding, deg_cap, lambda, eshift, energyT, &
+  highEScale, nrmediff, ediffcutoff, fixref, natoms, nstates
+  open(103,file='fit.in',delim='APOSTROPHE')
+  read(unit=103,nml=fitting)
+  close(103)
 
   call initpes
 
