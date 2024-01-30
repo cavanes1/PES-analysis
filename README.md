@@ -18,6 +18,14 @@ Required input files
 * fit.in
 * names.all
 
+Output files
+* energy.dat
+* fitener.dat
+* hd.dat
+* intc.dat
+* errener.dat
+* cartgrd.*.dat
+
 ### findcp.x
 Required input files
 * findcp.in
