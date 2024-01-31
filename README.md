@@ -76,3 +76,18 @@ Need more information on what this does.
 
 Required input files
 * traj.all
+
+## Python tools
+
+### surfcurve.py
+Given two points, this generates geom.all with linear synchronous transit points and calculates a curve plot using dat.x.
+
+### enerr.py
+Perform error analysis on the Hd surface.
+
+### gf.py
+Prepares the necessary data in order to perform a vibrational calculation using gf.x.
+This can be used with ab initio data as well.
+
+### ripgf.py
+If using ab intio data with gf.py, this program is used to calculate the Hessian after the ab intio data has finished calculating.
