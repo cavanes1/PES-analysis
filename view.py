@@ -91,27 +91,27 @@ endpts = []
 names = []
 sr = np.sqrt(rnge)
 # single-coordinate displacements
-for i in range(1,intdim + 1):
+for i in range(1, intdim + 1):
     names.append("coord" + str(i))
     gp = init_data.copy()
     gp[i-1] += rnge
     endpts.append(gp)
 # positive pairwise displacements
-for i in range(1,intdim + 1):
-    break # comment out
-    for j in range(i,intdim + 1):
+for i in range(1, intdim + 1):
+    #break # comment out
+    for j in range(i + 1, intdim + 1):
         names.append("i" + str(i) + "jplus" + str(j))
         gp = init_data.copy()
         gp[i-1] += sr
         gp[j-1] += sr
         endpts.append(gp)
 # opposite pairwise displacements
-for i in range(1,intdim + 1):
-    break # comment out
-    for j in range(i,intdim + 1):
+for i in range(1, intdim + 1):
+    #break # comment out
+    for j in range(i + 1, intdim + 1):
         names.append("i" + str(i) + "jmin" + str(j))
         gm = init_data.copy()
-        gm[i-1] -= sr
+        gm[i-1] += sr
         gm[j-1] -= sr
         endpts.append(gm)
 print("\nCurve endpoints generated\n")
@@ -208,9 +208,10 @@ def curve(name, endpoint):
     adj_E = (adj_E + eshift)*conversion
 
     # make plot
+    plt.figure(figsize=(10,5))
     for i in range(nstates):
-        #plt.ylim(-5000,90000)
-        #plt.xlim(-1.5,1.5)
+        plt.ylim(-5000,90000)
+        plt.xlim(-1.5,1.5)
         plt.title(name)
         plt.xlabel('LST progression from ' + origin_name + ' (arb. u.)')
         plt.ylabel('Relative total electronic energy (cm$^{-1}$)')
