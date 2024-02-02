@@ -82,6 +82,9 @@ Required input files
 ### surfcurve.py
 Given two points, this generates geom.all with linear synchronous transit points and calculates a curve plot using dat.x.
 
+### view.py
+Generates linear synchronous transit curve plots using dat.x for each internal coordinate and pair thereof.
+
 ### enerr.py
 Perform error analysis on the Hd surface.
 
