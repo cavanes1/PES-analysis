@@ -84,6 +84,7 @@ Given two points, this generates geom.all with linear synchronous transit points
 
 ### view.py
 Generates linear synchronous transit curve plots using dat.x for each internal coordinate and pair thereof.
+Requires matplotlib. In ARCH, this can be loaded using the module matplotlib/3.5.2-foss-2022a, which itself requires GCC/11.3.0.
 
 ### enerr.py
 Perform error analysis on the Hd surface.
