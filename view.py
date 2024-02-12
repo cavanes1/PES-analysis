@@ -13,10 +13,10 @@ origin_name = "C2vCI" # Path of initial Cartesian coordinate geometry file
 #       geom.all
 #       basis.in
 #       Hd.CheckPoint
+#       refgeom
 # This program automatically generates the required files
 #   energy.all
 #   names.all
-#   refgeom
 # Output: plots in PLOTS named PLOTS/*.png
 
 # module import
