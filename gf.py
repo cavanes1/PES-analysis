@@ -10,7 +10,7 @@
 
 # parameters
 refcartfl = "ORIGIN/geom" # Path of initial Cartesian geometry file
-state = 1
+state = 1 # Only used if surface
 ncoord = 12 # Number of internal coordinates
 distcs = [1, 2, 3, 4, 9, 10] # coordinates which are bond distances
 surface = False # False if ab initio
