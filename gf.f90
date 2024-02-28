@@ -77,12 +77,18 @@ program main
   call WilsonGFMethod(Hess,Bmat,mass,freq,intmode,Linv,cartmode,ncoord,natoms)
   freq=freq*freq2cm/(2.d0*pi)
 
-  write(*,"(f15.6)"),freq
-
   open(200,file='hess')
+  open(201,file='molden.freq')
   do i=1,ncoord
+    write(201,"(a10,i24)") "vibration",i
+    write(*,"(a10,i3,f10.1)") "Vibration",i,freq(i)
+    write(*,"(f12.5)"),intmode(:,i)
+    write(*,*)
+    write(201,"(3f12.5)"),cartmode(:,i)
     write(200,"(<ncoord>e18.8)") hess(i,:)
   end do
+
+  write(*,"(f15.6)"),freq
 
   stop
 end
