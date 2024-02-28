@@ -1,6 +1,15 @@
 # input if surface
 #   [refcartfl] - reference Cartesian geometry, COLUMBUS format
 #   intcfl - COLUMBUS internal coordinate file
+#   fit.in
+#   dat.x, which itself additionally requires
+#     basis.in
+#     Hd.CheckPoint
+#     refgeom
+#     names.all
+#   gf.x - this program automatically generates its required files
+#     geom.all
+#     energy.all
 # input if ab initio
 #   [init_dir] - reference COLUMBUS input
 #     contains [refcartfl] - reference Cartesian geometry, COLUMBUS format
@@ -209,6 +218,18 @@ for i in range(ncoord):
         displace(currgeom, target)
 
 if surface:
+    # read fit.in
+    h = open("fit.in", "r")
+    fitin = h.readlines()
+    h.close()
+    eshift = 0
+    for param in fitin:
+        if "eshift" in param:
+            eshift = float(param.split()[-1][:-3])
+            break
+    print("eshift  = " + str(eshift))
+    conversion = 219474.63067 # cm-1 per hartree
+
     # run dat.x
     rv = subprocess.run(["./dat.x"],cwd="./",capture_output=True)
     f = open("./dat.log", "w")
@@ -223,7 +244,7 @@ if surface:
     f = open("energy.all", "w")
     for geometry in dateners:
         # subtract reference energy (from fit.in)
-        thisE = str(float(geometry.split()[state - 1])/219474.63067-256.787847331183)
+        thisE = str(float(geometry.split()[state - 1])/conversion-eshift)
         f.write(thisE + "\n")
     f.close()
     print("Finished ripping fitener.dat to energy.all")
