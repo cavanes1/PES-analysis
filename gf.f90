@@ -18,6 +18,7 @@ program main
   real*8, allocatable :: mass(:), freq(:), intmode(:,:), Linv(:,:),cartmode(:,:)
 
   character(3) :: sym
+  character(1), allocatable :: symv(:)
   real*8 :: anums
   real*8 :: Rot(3,3), h,t,tol
   integer :: i,j,k,ios,total,info
@@ -40,6 +41,7 @@ program main
   allocate(dE(ncoord),d2E(ncoord,ncoord),hess(ncoord,ncoord))
   allocate(mass(natoms),freq(ncoord),intmode(ncoord,ncoord),Linv(ncoord,ncoord))
   allocate(cartmode(3*natoms,ncoord))
+  allocate(symv(natoms))
 
   open(unit=100,file='energy.all',access='sequential',form='formatted',&
        STATUS='OLD',ACTION='READ',POSITION='REWIND',IOSTAT=ios)
@@ -69,6 +71,7 @@ program main
        STATUS='OLD',ACTION='READ',POSITION='REWIND',IOSTAT=ios)
   do i=1,natoms
     read(101,*,iostat=ios) sym,anums,x(:,i),mass(i)
+    symv(i)=sym
   end do
 
   call WilsonBMatrixAndInternalCoordinate(x, Bmat, intc, 3*natoms, ncoord)
@@ -79,14 +82,26 @@ program main
 
   open(200,file='hess')
   open(201,file='molden.freq')
+
+  write(201,"(a27)") "-- > start of molden input"
+  write(201,"(a16)") "[Molden Format]"
+  write(201,"(a7)") "[FREQ]"
+  write(201,"(f10.2)"),freq
+  write(201,"(a11)") "[FR-COORD]"
+  do i=1,natoms
+    write(201,"(a4,3f13.6)") symv(i),x(:,i)
+  end do
+  write(201,"(a16)") "[FR-NORM-COORD]"
+
   do i=1,ncoord
-    write(201,"(a10,i24)") "vibration",i
-    write(*,"(a10,i3,f10.1)") "Vibration",i,freq(i)
+    write(*,"(a10,i3,f10.1)") "Vibration",i+6,freq(i)
     write(*,"(f12.5)"),intmode(:,i)
     write(*,*)
+    write(201,"(a10,i24)") "vibration",i+6
     write(201,"(3f12.5)"),cartmode(:,i)
     write(200,"(<ncoord>e18.8)") hess(i,:)
   end do
+  write(201,"(a24)") " --> end of molden input"
 
   write(*,"(f15.6)"),freq
 
